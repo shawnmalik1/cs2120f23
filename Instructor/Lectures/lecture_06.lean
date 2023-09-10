@@ -90,6 +90,9 @@ inductive Object : Type
 | paper
 | scissors
 
+open Object
+#check rock --Object
+
 /-!
 Let's look at the elements of this definition:
 - The inductive keyword indicates that we're going to define the set of objects of a new type by giving rules for how those objects can be constructed. 
@@ -146,6 +149,8 @@ def play : Object → Object → Result
 | rock, paper => loses
 | rock, rock => ties
 
+#reduce play scissors rock
+
 end RPS
 
 /-!
@@ -179,6 +184,11 @@ Here's a definition that will work for us.
 
 inductive Box (α : Type) : Type
 | put (a : α)
+
+def box_containing_hello : Box String := Box.put "hello"
+#check box_containing_hello -- Box String
+#check Box -- Type → Type
+#check (@Box.put)
 
 /-!
 Let's explain it.
