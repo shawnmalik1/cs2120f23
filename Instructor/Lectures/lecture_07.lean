@@ -50,6 +50,8 @@ full type of *put* using *@*.
 -/
 
 #check (@Box.put)
+#check (@Box.put Nat 8) --term of type Box Nat. Put is a constructor.
+#check (Box.put 8) --lean infers Nat because there is no '@'
 def jack_in_a_box := @Box.put String "Jack!"
 
 /-!
@@ -82,10 +84,10 @@ by returning *s*. We'll write a *get* function to
 do this, and we might as well make it polymorphic.
 -/
 
-def get {α : Type}: Box α → α 
+def get {α : Type}: Box α → α --pattern matching
 | (Box.put s) => s 
 
-#eval get (Box.put "Jack!")
+#eval get (Box.put "Jack!") --returns Jack!
 
 /-!
 The *Prod* type builder is analogous except it puts
@@ -99,12 +101,12 @@ to use ordered pair notation for that.
 end cs2120
 
 #check (Prod Nat Bool)  -- a type
-#check (Prod.mk 3 true) -- a value (term)
+#check (Prod.mk 3 true) -- a value (term), Prod Nat Bool
 #check (3, true)        -- outfix notation
 
 -- aka *projection functions*
-#eval Prod.fst (3, true)
-#eval Prod.snd (3, true)
+#eval Prod.fst (3, true) --returns 3
+#eval Prod.snd (3, true) --returns true
 #eval (3, true).1       -- postfix notation
 #eval (3, true).2       -- postfix notation
 
@@ -201,8 +203,8 @@ def elim_sum2 :
   (Nat → String) → 
   (Bool → String) → 
   String
-| (Sum.inl n), n2s, _ => n2s n
-| (Sum.inr b), _, b2s => b2s b
+| (Sum.inl n), n2s, _ => n2s n --inl introduces on left
+| (Sum.inr b), _, b2s => b2s b --inr introduces on right
 
 /-!
 Let's analyze that. It takes arguments as expected,
