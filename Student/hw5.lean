@@ -106,7 +106,7 @@ given *any* types, α and β,
 -/
 
 def demorgan2 {α β : Type} : (α ⊕ β → Empty) → ((α → Empty) × (β → Empty))
-| noaorb => (λ a : α, noaorb (Sum.inl a), λ b : β, noaorb (Sum.inr b))
+| noaorb => (fun a : α => noaorb (Sum.inl a), fun b : β => noaorb (Sum.inr b))
 
 
 /-!
