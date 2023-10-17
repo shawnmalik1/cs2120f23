@@ -679,6 +679,8 @@ against what we compute here.
 #reduce truth_table_outputs (((¬X ∧ ¬ Y) ⇒ ¬(X ∨ Y )))
 
 
+#reduce truth_table_outputs ((X ⇔ Y))
+
 /-!
 ## HOMEWORK PART 1:
 
@@ -699,8 +701,24 @@ cases to demonstrate your results.
 def is_sat (e : Expr) : Bool :=
   if true ∈ truth_table_outputs e then true else false  
 
+<<<<<<< HEAD
 def is_unsat (e : Expr) : Bool :=
   !is_sat e
+=======
+def reduce_or : List Bool → Bool 
+| [] => false
+| h::t => or h (reduce_or t)
+
+def reduce_and : List Bool → Bool 
+| [] => true
+| h::t => or h (reduce_and t)
+
+def is_sat : Expr → Bool := λ e : Expr => reduce_or (truth_table_outputs e)
+
+def is_valid : Expr → Bool := λ e : Expr => reduce_and (truth_table_outputs e)
+
+
+>>>>>>> 2fa27dfe3dc1b735c88e80c34bbdc411be56ec92
 
 def is_valid (e: Expr) : Bool :=
   if false ∈ truth_table_outputs e then false else true
@@ -710,7 +728,7 @@ def is_valid (e: Expr) : Bool :=
 #eval is_sat (X ∧ ¬X)                   -- expect false
 #eval is_unsat (X ∧ ¬X)                 -- expect true
 #eval is_valid (X ∨ ¬X)                 -- expect true
-#eval is_valid ((¬(X ∧ Y) ⇒ (¬X ∨ ¬Y))) -- expect true
+#eval is_valid ((¬(X ∧ Y) ⇔  (¬X ∨ ¬Y))) -- expect true
 #eval is_valid (¬(X ∨ Y) ⇒ (¬X ∧ ¬Y))   -- expect true
 #eval is_valid ((X ∨ Y) ⇒ (X → ¬Y))     -- expect false
 
