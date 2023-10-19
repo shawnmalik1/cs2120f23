@@ -30,3 +30,9 @@ if n % 2 = 0 then true else false
 
 #eval is_even 2
 #eval is_even 19
+
+--x implies y implies not y implies not x
+-- true implies true --> not (true) implies not(true)
+-- false implies false -> not (false) imples not(false)
+-- true implies false -> not(false) implies not(true)
+--false implies true -> not(true) implies not(false)
